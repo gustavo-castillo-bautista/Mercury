@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/ScalingTest.dir/ScalingTest.cpp.o -o ScalingTest  ../../Kernel/libMercuryBase.a ../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

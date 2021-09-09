@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/HourGlass2DDemoMPI.dir/HourGlass2DDemoMPI.cpp.o -o HourGlass2DDemoMPI  ../../Kernel/libChute.a ../../Kernel/libMercuryBase.a ../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

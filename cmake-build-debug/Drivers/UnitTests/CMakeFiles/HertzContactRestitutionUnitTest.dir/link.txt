@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/HertzContactRestitutionUnitTest.dir/HertzContactRestitutionUnitTest.cpp.o -o HertzContactRestitutionUnitTest  ../../Kernel/libMercuryBase.a ../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

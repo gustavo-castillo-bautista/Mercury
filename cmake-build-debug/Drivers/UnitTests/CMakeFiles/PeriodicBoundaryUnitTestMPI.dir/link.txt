@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/PeriodicBoundaryUnitTestMPI.dir/PeriodicBoundaryUnitTestMPI.cpp.o -o PeriodicBoundaryUnitTestMPI  ../../Kernel/libMercuryBase.a ../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

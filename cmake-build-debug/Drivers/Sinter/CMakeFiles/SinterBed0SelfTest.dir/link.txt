@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/SinterBed0SelfTest.dir/SinterBed0SelfTest.cpp.o -o SinterBed0SelfTest  ../../Kernel/libMercuryBase.a ../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

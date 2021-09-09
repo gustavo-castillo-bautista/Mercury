@@ -1,0 +1,20 @@
+/*! \mainpage MercuryDPM Reference Manual
+    \anchor MainPage
+
+This is the reference manual of <a href="http://mercurydpm.org/">MercuryDPM</a>, a free, open source software package for performing discrete particle simulations. The aim of this manual is to provide all necessary information to guide a new user through the installation process, teach the user how to run, visualisa and analyse MercuryDPM simulations, and how to create new MercuryDPM codes to model a system of your choice.
+
+The manual is split into three parts:
+
+- \subpage Installing
+- \subpage GettingStarted
+- \subpage Tutorials
+- \subpage creating
+- \subpage Mercury_CG
+- \subpage VisualisingYourResults
+- \subpage DevelopersGuide
+- \subpage ContactModel
+- \subpage ForDevelopers
+
+For more information regarding the code, visit http://mercurydpm.org/
+
+*/

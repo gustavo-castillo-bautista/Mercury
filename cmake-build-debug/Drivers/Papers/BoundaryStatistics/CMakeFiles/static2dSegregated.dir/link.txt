@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/static2dSegregated.dir/static2dSegregated.cpp.o -o static2dSegregated  ../../../Kernel/libChute.a ../../../Kernel/libMercuryBase.a ../../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

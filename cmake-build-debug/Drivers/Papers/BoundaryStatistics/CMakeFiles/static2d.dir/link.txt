@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/static2d.dir/static2d.cpp.o -o static2d  ../../../Kernel/libChute.a ../../../Kernel/libMercuryBase.a ../../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

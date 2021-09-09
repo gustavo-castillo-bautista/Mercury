@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/ClosedCSCRun.dir/ClosedCSCRun.cpp.o -o ClosedCSCRun  ../../Kernel/libChute.a ../../Kernel/libMercuryBase.a ../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

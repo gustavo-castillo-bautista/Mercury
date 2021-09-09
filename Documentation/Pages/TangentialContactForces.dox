@@ -1,0 +1,20 @@
+/*!
+\page TangentialContactForces Linear Tangential Contact Forces
+
+Linear Tangential contact forces in MercuryDPM implemented as FrictionSpecies, FrictionInteraction
+and SlidingFrictionSpecies, SlidingFrictionInteraction.
+
+\n
+Force Computation:
+
+\code void FrictionInteraction::computeFrictionForce() \endcode
+\code void SlidingFrictionInteraction::computeFrictionForce() \endcode
+
+The model parameters (e.g. sliding stiffness, rolling stiffness, tangential coefficient of restitution, etc) are set using FrictionSpecies
+(and SlidingFrictionSpecies) member functions
+
+Reference:
+\n
+<a href="https://link.springer.com/article/10.1007%2Fs10035-008-0099-x">S. Luding, Cohesive, frictional powders: Contact models for tension" </a>
+
+*/

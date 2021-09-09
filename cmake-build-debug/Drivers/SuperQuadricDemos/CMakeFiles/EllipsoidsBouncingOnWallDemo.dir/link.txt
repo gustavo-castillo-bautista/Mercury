@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/EllipsoidsBouncingOnWallDemo.dir/EllipsoidsBouncingOnWallDemo.cpp.o -o EllipsoidsBouncingOnWallDemo  ../../Kernel/libMercuryBase.a ../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

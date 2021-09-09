@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/TunuguntlaBokhoveThornton2014.dir/TunuguntlaBokhoveThornton2014.cpp.o -o TunuguntlaBokhoveThornton2014  ../../../Kernel/libChute.a ../../../Kernel/libMercuryBase.a ../../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

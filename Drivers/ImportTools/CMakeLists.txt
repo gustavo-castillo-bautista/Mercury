@@ -1,0 +1,7 @@
+include(${CMAKE_SOURCE_DIR}/Configuration/MasterMake.cmake)
+
+add_executable(BinaryReaderSTLOneTriangleUnitTest BinaryReaderSTLOneTriangleUnitTest.cpp)
+add_executable(BinaryReaderSTL1by1by1bySquareUnitTest BinaryReaderSTL1by1by1bySquareUnitTest.cpp)
+
+target_link_libraries(BinaryReaderSTLOneTriangleUnitTest MercuryBase)
+target_link_libraries(BinaryReaderSTL1by1by1bySquareUnitTest MercuryBase)

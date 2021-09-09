@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/segregation_with_hopper.dir/segregation_with_hopper.cpp.o -o segregation_with_hopper  ../../Kernel/libChute.a ../../Kernel/libMercuryBase.a ../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

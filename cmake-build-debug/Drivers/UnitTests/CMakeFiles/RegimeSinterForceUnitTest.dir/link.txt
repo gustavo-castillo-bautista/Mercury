@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/RegimeSinterForceUnitTest.dir/RegimeSinterForceUnitTest.cpp.o -o RegimeSinterForceUnitTest  ../../Kernel/libMercuryBase.a ../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

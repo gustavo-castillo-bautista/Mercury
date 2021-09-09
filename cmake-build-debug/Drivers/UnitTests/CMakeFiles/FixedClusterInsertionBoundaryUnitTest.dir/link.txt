@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/FixedClusterInsertionBoundaryUnitTest.dir/FixedClusterInsertionBoundaryUnitTest.cpp.o -o FixedClusterInsertionBoundaryUnitTest  ../../Kernel/libMercuryBase.a ../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

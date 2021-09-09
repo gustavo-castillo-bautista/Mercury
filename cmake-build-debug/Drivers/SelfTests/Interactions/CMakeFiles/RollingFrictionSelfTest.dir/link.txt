@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/RollingFrictionSelfTest.dir/RollingFrictionSelfTest.cpp.o -o RollingFrictionSelfTest  ../../../Kernel/libChute.a ../../../Kernel/libMercuryBase.a ../../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

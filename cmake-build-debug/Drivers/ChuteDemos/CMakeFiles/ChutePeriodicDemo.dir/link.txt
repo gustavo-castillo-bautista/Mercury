@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/ChutePeriodicDemo.dir/ChutePeriodicDemo.cpp.o -o ChutePeriodicDemo  ../../Kernel/libChute.a ../../Kernel/libMercuryBase.a ../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/CGStandardDeviationUnitTest.dir/CGStandardDeviationUnitTest.cpp.o -o CGStandardDeviationUnitTest  ../../Kernel/libMercuryBase.a ../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

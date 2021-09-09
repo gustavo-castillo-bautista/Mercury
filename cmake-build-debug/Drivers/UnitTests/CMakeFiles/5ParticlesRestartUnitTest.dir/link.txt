@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/5ParticlesRestartUnitTest.dir/5ParticlesRestartUnitTest.cpp.o -o 5ParticlesRestartUnitTest  ../../Kernel/libMercuryBase.a ../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

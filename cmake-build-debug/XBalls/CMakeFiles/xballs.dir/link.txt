@@ -1,0 +1,1 @@
+/usr/bin/cc -g -rdynamic CMakeFiles/xballs.dir/xballs.c.o -o xballs  -lXt -lX11 -lXRes -lm 

@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/data2pvd.dir/data2pvd.cpp.o -o data2pvd  ../Kernel/libMercuryBase.a ../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

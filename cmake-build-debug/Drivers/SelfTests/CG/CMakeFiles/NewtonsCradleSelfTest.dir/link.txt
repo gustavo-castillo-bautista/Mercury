@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/NewtonsCradleSelfTest.dir/NewtonsCradleSelfTest.cpp.o -o NewtonsCradleSelfTest  ../../../Kernel/libMercuryBase.a ../../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

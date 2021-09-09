@@ -1,0 +1,24 @@
+/*!
+\page ChargedBonded_Interaction Charged particles
+
+Charged bonded model in MercuryDPM referred to as ChargedBonded
+(ChargedBondedSpecies, ChargedBondedInteraction).
+
+Model:
+
+Header:
+\code #include "Species/AdhesiveForceSpecies/ChargedBondedSpecies.h" \endcode
+
+Interaction force:
+\code ChargedBondedInteraction::computeAdhesionForce() \endcode
+
+Unit test:
+ChargedBondedParticleUnitTest.cpp
+
+Self test:
+TwoBondedParticleElasticCollisionSelfTest.cpp
+
+Reference:
+\n
+<a href="https://www.icevirtuallibrary.com/doi/pdf/10.1680/jgeot.18.P.060">S. Exploring the micromechanics of non-active clays by way of virtual DEM experiments
+*/

@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/ContactDetectionNormalSpheresUnitTest.dir/ContactDetectionNormalSpheresUnitTest.cpp.o -o ContactDetectionNormalSpheresUnitTest  ../../../Kernel/libMercuryBase.a ../../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

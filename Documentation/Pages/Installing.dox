@@ -1,0 +1,24 @@
+/*! \page Installing Installing MercuryDPM
+  \tableofcontents
+
+# Installation instructions {#ins}
+
+MercuryDPM can be installed on Linux, Windows and MacOS. 
+Follow the <a href="http://mercurydpm.org/downloads/Trunk">instructions for
+installing the Trunk version</a> on the MercuryDPM website.
+
+If you have trouble with the installation, check our 
+<a href="http://mercurydpm.org/downloads/trouble-shooting">trouble shooting
+guide</a> for answers.
+
+# Installing an IDE {#ide}
+Once you have installed MercuryDPM, you can use an IDE to comfortably edit,
+compile and run codes. For academic users, we recommend CLion, as you can get a
+free academic license for it. For other users, netbeans is recommended.
+- \subpage CLion
+- \subpage Netbeans
+
+# MercuryDPM mailing list {#mail}
+
+To receive updates about the code, please follow the instructions on http://mercurydpm.org/support/mailing-list to sign up for the mailing list.
+*/

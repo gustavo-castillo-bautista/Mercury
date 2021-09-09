@@ -1,0 +1,560 @@
+//Copyright (c) 2013-2020, The MercuryDPM Developers Team. All rights reserved.
+//For the list of developers, see <http://www.MercuryDPM.org/Team>.
+//
+//Redistribution and use in source and binary forms, with or without
+//modification, are permitted provided that the following conditions are met:
+//  * Redistributions of source code must retain the above copyright
+//    notice, this list of conditions and the following disclaimer.
+//  * Redistributions in binary form must reproduce the above copyright
+//    notice, this list of conditions and the following disclaimer in the
+//    documentation and/or other materials provided with the distribution.
+//  * Neither the name MercuryDPM nor the
+//    names of its contributors may be used to endorse or promote products
+//    derived from this software without specific prior written permission.
+//
+//THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+//ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+//WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+//DISCLAIMED. IN NO EVENT SHALL THE MERCURYDPM DEVELOPERS TEAM BE LIABLE FOR ANY
+//DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+//(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+//LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+//ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+//(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+//SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#ifdef MERCURY_USE_OMP
+#include <omp.h>
+#endif
+
+#include "CG/Functions/Gauss.h"
+#include "CG/Functions/Polynomial.h"
+#include "CG/Functions/Heaviside.h"
+#include "BaseCG.h"
+#include "CGHandler.h"
+#include "DPMBase.h"
+#include "CG.h"
+
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+CG<Coordinates, BaseFunction, Fields>::CG(Mdouble width, unsigned n)
+{
+    function_.setWidth(width);
+    setN(n);
+#ifdef DEBUG_CONSTRUCTOR
+    std::cout << "CG<Coordinates, BaseFunction, Fields>::CG(w,n) finished" << std::endl;
+#endif
+}
+
+/*!
+ * \details This function is called by writeAll, which adds the points_ data.
+ * The split is necessary as classes inherited from CG might add more data
+ * to the write function.
+ * \param[out] os the output stream to which data is written.
+ */
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+void CG<Coordinates, BaseFunction, Fields>::write(std::ostream& os) const
+{
+    BaseCG::write(os);
+    os << ' ';
+    function_.write(os);
+    os << "\ntime ";
+    Coordinates::writeNames(os);
+    // os << ' ';
+    // Coordinates::writeNames already has a space added at the end, so for the case O::write, no extra space is added
+    Point::writeNames(os, Coordinates::countVariables() + 1);
+    os << '\n';
+}
+
+/*!
+ * \param[out] os the output stream to which data is written.
+ */
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+void CG<Coordinates, BaseFunction, Fields>::writeAll(std::ostream& os) const
+{
+    for (auto& p : points_)
+    {
+        os << getHandler()->getDPMBase()->getTime() << ' ';
+        p.write(os);
+        os << '\n';
+    }
+}
+
+/*!
+ * \details note, this returns the correct pointer, not a BaseCG pointer, thus
+ * it can be used to set CG-specific functions.
+ * \return pointer to the newly created CG object.
+ */
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+CG<Coordinates, BaseFunction, Fields>* CG<Coordinates, BaseFunction, Fields>::copy() const
+{
+    return new CG(*this);
+}
+
+/*!
+ * \return string containing the name
+ */
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+std::string CG<Coordinates, BaseFunction, Fields>::getName() const
+{
+    return "CG<" + Coordinates::getName() + ">";
+}
+
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+void CG<Coordinates, BaseFunction, Fields>::createMesh()
+{
+    spaceEvenly(getMin(), getMax(), {getNX(), getNY(), getNZ()}, points_);
+    nX_ = Coordinates::isResolvedIn(0) ? nX_ : 1;
+    nY_ = Coordinates::isResolvedIn(1) ? nY_ : 1;
+    nZ_ = Coordinates::isResolvedIn(2) ? nZ_ : 1;
+    logger(INFO, "In CG, setting number of evaluation points to %, %, % in X, Y and Z dimensions respectively", nX_, nY_, nZ_);
+}
+
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+void CG<Coordinates, BaseFunction, Fields>::initialise()
+{
+    DPMBase* dpm = getHandler()->getDPMBase();
+    //set name if none is given
+    if (!statFile.getName().compare("out"))
+    {
+        if (NUMBER_OF_PROCESSORS > 1)
+        {
+            statFile.setName(dpm->getName() + "." + std::to_string(getId()) + ".stat" + std::to_string(PROCESSOR_ID));
+        }
+        else
+        {
+            statFile.setName(dpm->getName() + "." + std::to_string(getId()) + ".stat");
+        }
+    }
+    
+    //if (std::isinf(getTimeMin()))
+    //    setTimeMin(dpm->getTime());
+    
+    if (std::is_same<Coordinates, CGCoordinates::R>::value || std::is_same<Coordinates, CGCoordinates::RZ>::value)
+    {
+        // min_ and max_ are in cylindrical coordinates (R,A,Z)
+        if (std::isinf(getMin().X))
+            min_.X = 0;
+        if (std::isinf(getMax().X))
+            max_.X = sqrt(mathsFunc::square(std::fmax(-dpm->getXMin(), dpm->getXMax())) +
+                          mathsFunc::square(std::fmax(-dpm->getYMin(), dpm->getYMax())));
+        if (std::isinf(getMin().Y))
+            min_.Y = 0;
+        if (std::isinf(getMax().Y))
+            max_.Y = 2 * constants::pi;
+    }
+    else
+    {
+        if (std::isinf(getMin().X))
+            min_.X = dpm->getXMin();
+        if (std::isinf(getMax().X))
+            max_.X = dpm->getXMax();
+        
+        if (std::isinf(getMin().Y))
+            min_.Y = dpm->getYMin();
+        if (std::isinf(getMax().Y))
+            max_.Y = dpm->getYMax();
+    }
+    
+    if (std::isinf(getMin().Z))
+        min_.Z = dpm->getZMin();
+    if (std::isinf(getMax().Z))
+        max_.Z = dpm->getZMax();
+    
+    
+    createMesh();
+    
+    function_.setWidth(getWidth());
+    function_.setEps(getEps());
+    
+    //count_if counts all particles in the particle handler for which selectedParticle_(p) returns true.
+    const ParticleHandler& particleHandler = getHandler()->getDPMBase()->particleHandler;
+    unsigned N = std::count_if(particleHandler.begin(), particleHandler.end(), selectedParticle_);
+    cgLogger(DEBUG, "CG::initialise %: #Points=%, #Particles=%", statFile.getName(), points_.size(), N);
+    
+    //here, we write the data of each time step
+    if (statFile.open(std::fstream::out))
+    {
+        write(statFile.getFstream());
+        statFile.close();
+    }
+    
+};
+
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+void CG<Coordinates, BaseFunction, Fields>::resetVariables()
+{
+    // set all cg-fields to zero
+    //note, that setZero is coming from StandardFields.
+    for (Point& r : points_)
+    {
+        r.setZero();
+    }
+};
+
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+void CG<Coordinates, BaseFunction, Fields>::volumeAverageVariables()
+{
+    //divide by volume
+    Mdouble volume = Function::CoordinatesType::getVolumeOfAveragedDimensions(min_, max_);
+    for (auto& c : points_)
+    {
+        c /= volume;
+    }
+};
+
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+void CG<Coordinates, BaseFunction, Fields>::writeVariables()
+{
+    // write the data of each time step
+    if (statFile.openWrite(getHandler()->getDPMBase()->getNumberOfTimeSteps()))
+    {
+        writeAll(statFile.getFstream());
+        statFile.close();
+    }
+};
+
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+void CG<Coordinates, BaseFunction, Fields>::outputSumOfVariables()
+{
+    // plot sum over domain
+    if (CG_LOGLEVEL > Log::INFO)
+    {
+        std::stringstream ss;
+        evaluateAverage().Fields::output(ss);
+        cgLogger(INFO, "Spatial averages: %", ss.str());
+    }
+};
+
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+void CG<Coordinates, BaseFunction, Fields>::evaluateCommon()
+{
+    const DPMBase* const dpm = getHandler()->getDPMBase();
+    
+    // get particle statistics:
+    // no mpi/periodic particles,
+    // fixed particles only if Fields::evaluateFixedParticles gives true
+    // only if the function selectedParticle returns true for the given particle
+//#pragma omp parallel
+//    {
+        //int num_threads = omp_get_num_threads();
+        //logger(INFO,"Number of Particles =  % num_threads = %",dpm->particleHandler.getNumberOfObjects(),num_threads);
+
+        //#pragma omp parallel for
+        for (int k = 0; k < dpm->particleHandler.getNumberOfObjects(); ++k) {
+            //logger(INFO," Particle Index =  % thread_idx = %",k,thread_idx);
+            const BaseParticle *const p = dpm->particleHandler.getObject(k);
+            //if p is (a) not a ghost,MPI, or fixed particle
+            if (!(p->isMPIParticle() || p->isPeriodicGhostParticle()) &&
+                (!p->isFixed() || Fields::evaluateFixedParticles()) &&
+                selectedParticle_(p)) {
+                evaluateParticle(*p);
+            }
+        }
+//    }
+    
+    // get contact statistics
+    if (Fields::doInteractionStatistics())
+    {
+        //#pragma omp parallel for
+        for (int k = 0; k < dpm->interactionHandler.getNumberOfObjects(); ++k)
+        //for (BaseInteraction* i : dpm->interactionHandler)
+        {
+            const BaseInteraction* const i = dpm->interactionHandler.getObject(k);
+            evaluateContact(*i);
+        }
+    }
+};
+
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+void CG<Coordinates, BaseFunction, Fields>::evaluate()
+{
+    // set all variables to zero
+    resetVariables();
+    
+    // evaluate particles and fields (common part for CG, timeAveragedCG and timeSmoothedCG)
+    // first evaluates all particles, then all interactions
+    evaluateCommon();
+    
+    //volume-average (divide by volume)
+    volumeAverageVariables();
+    
+    // plot sum over domain
+    //outputSumOfVariables();
+    
+    // write the data of each time step
+    writeVariables();
+};
+
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+typename CG<Coordinates, BaseFunction, Fields>::Point CG<Coordinates, BaseFunction, Fields>::evaluateAverage()
+{
+    Point total;
+    total.setZero();
+    Mdouble weight = 0;
+    for (Point& c : points_)
+    {
+        total += c * c.coordinates.getWeight();
+        weight += c.coordinates.getWeight();
+    }
+    total /= weight;
+    return total;
+}
+
+
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+void CG<Coordinates, BaseFunction, Fields>::evaluateParticleAtPoint(Fields& currentInteraction,
+                                                                    const BaseParticle& p, Point& r)
+{
+    Mdouble phi = function_.evaluateCGFunction(p.getPosition(), r.coordinates);
+    //logger(INFO,"phi % %",phi,function_.getCutoff());
+    r.addParticleStatistics(phi, currentInteraction);
+    
+    //Compute derivatives if required
+    if (CGFields::StandardFields::isDifferentialField())
+    {
+        Vec3D dPhi = function_.evaluateCGFunctionDerivatives(p.getPosition(), r.coordinates);
+        r.addParticleDifferentialStatistics(dPhi, currentInteraction);
+    }
+    else
+    {
+        logger(DEBUG, "Not computing differentialField");
+    }
+}
+
+
+/*!
+ * \param[in] p The particle that has to be passed to all CGPoint's.
+ */
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+void CG<Coordinates, BaseFunction, Fields>::evaluateParticle(const BaseParticle& p)
+{
+    const Vec3D pos = p.getPosition()-min_;
+    const Mdouble cutoff = function_.getCutoff();
+
+    std::size_t minX;
+    std::size_t maxX;
+    // if x-coordinate is averaged
+    if (!Coordinates::isResolvedIn(0)) {
+        minX = 0;
+        maxX = (averageBeyondDomain_ || (pos.X>=min_.X && pos.X<=max_.X) )?1:0; // don't do anything if particle is beyond domain and should not be considered
+    } else {
+        //Example
+        // min.X=0, max.X=6, nX=3 => points[0,1,2]=1,3,5
+        // pos=2, cutoff=1.1 => points 0,1 should be considered
+        //    minX=ceil(0.5-0.55)=0
+        //    maxX=floor(0.5+0.55)=1 (!one is added to the max since the max is never reached!)
+        const Mdouble invDelta = nX_ / (max_.X - min_.X);
+        const Mdouble idPos = pos.X * invDelta - 0.5;
+        const Mdouble idCutoff = cutoff * invDelta;
+        minX = static_cast<std::size_t>(std::max(0.0, idPos - idCutoff + 1));  //max before cast to avoid negative number issue
+        maxX = std::min(nX_, static_cast<std::size_t> (idPos + idCutoff + 1));
+    }
+
+    std::size_t minY;
+    std::size_t maxY;
+    if (!Coordinates::isResolvedIn(1)) {
+        minY = 0;
+        maxY = (averageBeyondDomain_ || (pos.Y>=min_.Y && pos.Y<=max_.Y) )?1:0;
+    } else {
+        const Mdouble invDelta = nY_ / (max_.Y - min_.Y);
+        const Mdouble idPos = pos.Y * invDelta - 0.5;
+        const Mdouble idCutoff = cutoff * invDelta;
+        minY = static_cast<std::size_t>(std::max(0.0, idPos - idCutoff + 1));
+        maxY = std::min(nY_, static_cast<std::size_t> (idPos + idCutoff +1));
+    }
+
+    std::size_t minZ;
+    std::size_t maxZ;
+    if (!Coordinates::isResolvedIn(2)) {
+        minZ = 0;
+        maxZ = (averageBeyondDomain_ || (pos.Z>=min_.Z && pos.Z<=max_.Z) )?1:0;
+    } else {
+        const Mdouble invDelta = nZ_ / (max_.Z - min_.Z);
+        const Mdouble idPos = pos.Z * invDelta - 0.5;
+        const Mdouble idCutoff = cutoff * invDelta;
+        minZ = static_cast<std::size_t>(std::max(0.0, idPos - idCutoff + 1));
+        maxZ = std::min(nZ_, static_cast<std::size_t> (idPos + idCutoff +1));
+    }
+    // BREAK THROUGH
+    Fields currentInteraction;
+    currentInteraction.setFields(p);
+    //#pragma omp parallel for
+    for (std::size_t i = minX; i < maxX; i++)
+    {
+        for (std::size_t j = minY; j < maxY; j++)
+        {
+            for (std::size_t k = minZ; k < maxZ; k++)
+            {
+                Point& r = points_[(i * nY_ + j) * nZ_ + k];
+                evaluateParticleAtPoint(currentInteraction, p, r);
+            }
+        }
+    }
+}
+
+///\todo Make this general for all R-coordinate systems
+template<>
+void CG<CGCoordinates::R, CGFunctions::Gauss, CGFields::StandardFields>::evaluateParticle(const BaseParticle& p)
+{
+    CGFields::StandardFields currentInteraction;
+    currentInteraction.setFields(p);
+    
+    for (Point& r : points_)
+    {
+        Mdouble phi = function_.evaluateCylindricalCGFunction(p.getPosition(), r.coordinates);
+        r.addParticleStatistics(phi, currentInteraction);
+        
+        //Compute derivatives if required
+        if (CGFields::StandardFields::isDifferentialField())
+        {
+            //TODO
+        }
+    }
+}
+
+///\todo check if evaluateCGFunction is correct, or if it should be evaluateCylindricalCGFunction
+template<>
+void CG<CGCoordinates::RZ, CGFunctions::Gauss, CGFields::StandardFields>::evaluateParticle(const BaseParticle& p)
+{
+    CGFields::StandardFields currentInteraction;
+    currentInteraction.setFields(p);
+    
+    for (Point& r : points_)
+    {
+        Mdouble phi = function_.evaluateCGFunction(p.getPosition(), r.coordinates);
+        r.addParticleStatistics(phi, currentInteraction);
+        
+        //Compute derivatives if required
+        if (CGFields::StandardFields::isDifferentialField())
+        {
+            //TODO
+        }
+    }
+}
+
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+IntegralType CG<Coordinates, BaseFunction, Fields>::getIntegralType(const BaseInteraction& c)
+{
+    if (c.getP()->isFixed() || !selectedParticle_(c.getP()))
+    {
+        if (c.getI()->isFixed() || !selectedParticle_(c.getI()))
+            return IntegralType::NONE;
+        return IntegralType::I_TO_CONTACT;
+    }
+    else if (c.getI()->isFixed() || !selectedParticle_(c.getI()))
+    {
+        return IntegralType::CONTACT_TO_P;
+    }
+    else
+    {
+        return IntegralType::I_TO_P;
+    }
+}
+
+/*!
+ * \param[in] contact The contact that has to be passed to all CGPoint's.
+ */
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+void CG<Coordinates, BaseFunction, Fields>::evaluateContact(const BaseInteraction& c)
+{
+    IntegralType it = getIntegralType(c);
+    if (it == IntegralType::NONE)
+        return;
+    
+    Fields currentInteraction;
+    currentInteraction.setFields(c, it);
+    
+    const Vec3D& p = c.getP()->getPosition();
+    const Vec3D& i = (c.getI()->isFixed()) ? (c.getContactPoint()) : (c.getI()->getPosition());
+    
+    const Mdouble invDeltaX = nX_ / (max_.X - min_.X);
+    const Mdouble pX = (p.X - min_.X) * invDeltaX - 0.5;
+    const Mdouble iX = (i.X - min_.X) * invDeltaX - 0.5;
+    const Mdouble cX = function_.getCutoff() * invDeltaX;
+    const std::size_t minX = (nX_ == 1 ? 0 : static_cast<std::size_t>(std::max(0.0, std::min(pX, iX) - cX + 1)));
+    const std::size_t maxX = (nX_ == 1 ? 1 : std::min(nX_, static_cast<std::size_t> (std::max(pX, iX) + cX + 1)));
+    
+    const Mdouble invDeltaY = nY_ / (max_.Y - min_.Y);
+    const Mdouble pY = (p.Y - min_.Y) * invDeltaY - 0.5;
+    const Mdouble iY = (i.Y - min_.Y) * invDeltaY - 0.5;
+    const Mdouble cY = function_.getCutoff() * invDeltaY;
+    const std::size_t minY = (nY_ == 1 ? 0 : static_cast<std::size_t>(std::max(0.0, std::min(pY, iY) - cY + 1)));
+    const std::size_t maxY = (nY_ == 1 ? 1 : std::min(nY_, static_cast<std::size_t> (std::max(pY, iY) + cY + 1)));
+    
+    const Mdouble invDeltaZ = nZ_ / (max_.Z - min_.Z);
+    const Mdouble pZ = (p.Z - min_.Z) * invDeltaZ - 0.5;
+    const Mdouble iZ = (i.Z - min_.Z) * invDeltaZ - 0.5;
+    const Mdouble cZ = function_.getCutoff() * invDeltaZ;
+    const std::size_t minZ = (nZ_ == 1 ? 0 : static_cast<std::size_t>(std::max(0.0, std::min(pZ, iZ) - cZ + 1)));
+    const std::size_t maxZ = (nZ_ == 1 ? 1 : std::min(nZ_, static_cast<std::size_t> (std::max(pZ, iZ) + cZ + 1)));
+    // BREAK THROUGH
+    //#pragma omp parallel for
+    for (std::size_t i = minX; i < maxX; i++)
+    {
+        for (std::size_t j = minY; j < maxY; j++)
+        {
+            for (std::size_t k = minZ; k < maxZ; k++)
+            {
+                Point& r = points_[(i * nY_ + j) * nZ_ + k];
+                Mdouble psi = function_.evaluateCGIntegral(c, r.coordinates, it);
+                r.addInteractionStatistics(psi, currentInteraction);
+                if (it != IntegralType::I_TO_P)
+                {
+                    Mdouble phi = function_.evaluateCGFunction(c.getContactPoint(), r.coordinates);
+                    r.addContactPointStatistics(phi, currentInteraction);
+                }
+            }
+        }
+    }
+}
+
+///\todo generalise for all cylindrical coordinates
+template<>
+void CG<CGCoordinates::R, CGFunctions::Gauss>::evaluateContact(const BaseInteraction& c)
+{
+    IntegralType i = getIntegralType(c);
+    if (i == IntegralType::NONE) return;
+    CGFields::StandardFields currentInteraction;
+    currentInteraction.setCylindricalFields(c, i);
+    
+    for (Point& r : points_)
+    {
+        Mdouble psi = function_.evaluateCylindricalCGIntegral(c, r.coordinates, i);
+        r.addInteractionStatistics(psi, currentInteraction);
+        if (i != IntegralType::I_TO_P)
+        {
+            Mdouble phi = function_.evaluateCylindricalCGFunction(c.getContactPoint(), r.coordinates);
+            r.addContactPointStatistics(phi, currentInteraction);
+        }
+    }
+}
+
+///\todo generalise for all cylindrical coordinates
+///\todo check if evaluateCGIntegral/Function is correct, or should be evaluateCylindricalCGIntegral/Function
+template<>
+void CG<CGCoordinates::RZ, CGFunctions::Gauss>::evaluateContact(const BaseInteraction& c)
+{
+    IntegralType i = getIntegralType(c);
+    if (i == IntegralType::NONE) return;
+    CGFields::StandardFields currentInteraction;
+    currentInteraction.setCylindricalFields(c, i);
+    
+    for (Point& r : points_)
+    {
+        Mdouble psi = function_.evaluateCGIntegral(c, r.coordinates, i);
+        r.addInteractionStatistics(psi, currentInteraction);
+        if (i != IntegralType::I_TO_P)
+        {
+            Mdouble phi = function_.evaluateCGFunction(c.getContactPoint(), r.coordinates);
+            r.addContactPointStatistics(phi, currentInteraction);
+        }
+    }
+}
+
+template<class Coordinates, template<class> class BaseFunction, class Fields>
+void CG<Coordinates, BaseFunction, Fields>::finish()
+{
+    cgLogger(DEBUG, "CG::finish   %", statFile.getName());
+    statFile.close();
+    
+    outputSumOfVariables();
+}

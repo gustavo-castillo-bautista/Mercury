@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/TangentialSpringEnergyConservationUnitTest.dir/TangentialSpringEnergyConservationUnitTest.cpp.o -o TangentialSpringEnergyConservationUnitTest  ../../Kernel/libMercuryBase.a ../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

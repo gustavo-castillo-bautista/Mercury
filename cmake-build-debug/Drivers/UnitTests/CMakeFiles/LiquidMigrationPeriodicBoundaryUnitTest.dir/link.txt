@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++14 -g -rdynamic CMakeFiles/LiquidMigrationPeriodicBoundaryUnitTest.dir/LiquidMigrationPeriodicBoundaryUnitTest.cpp.o -o LiquidMigrationPeriodicBoundaryUnitTest  ../../Kernel/libMercuryBase.a ../../Kernel/Math/libLinearAlgebra.a -ldl -lgfortran -lquadmath 

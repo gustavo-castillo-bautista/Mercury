@@ -1,0 +1,2 @@
+/usr/bin/ar qc libChute.a CMakeFiles/Chute.dir/ChuteBottom.cc.o CMakeFiles/Chute.dir/ChuteWithHopper.cc.o CMakeFiles/Chute.dir/Chute.cc.o
+/usr/bin/ranlib libChute.a

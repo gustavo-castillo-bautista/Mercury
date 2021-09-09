@@ -1,0 +1,2 @@
+/usr/bin/ar qc libFunnel.a CMakeFiles/Funnel.dir/Funnel.cc.o
+/usr/bin/ranlib libFunnel.a
