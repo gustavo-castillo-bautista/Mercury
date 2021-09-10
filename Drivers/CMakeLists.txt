@@ -26,9 +26,8 @@ add_subdirectory(ParallelDrum)
 add_subdirectory(Clusters)
 add_subdirectory(SimpleDrum)
 add_subdirectory(TriangleWalls)
-add_subdirectory(silo-discharge)
-add_subdirectory(discharge-silo)
 add_subdirectory(Socavones)
+add_subdirectory(Silos)
 
 #IFCD: If you want (a folder of) the USER directory to be built, mark it so in your ccmake or cmake-gui
 

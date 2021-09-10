@@ -64,6 +64,7 @@
       <config projectName="Mercury" targetName="MaserRepeatedOutInMPI2Test" />
       <config projectName="Mercury" targetName="STLReaderUnitTest" />
       <config projectName="Mercury" targetName="RotatedParticlesDemo" />
+      <config projectName="Mercury" targetName="Socavon_semiesfera_rfijo" />
       <config projectName="Mercury" targetName="VerticalMixerAngledBlades" />
       <config projectName="Mercury" targetName="vibratedBed" />
       <config projectName="Mercury" targetName="1Particle4WallsRestartUnitTest" />
@@ -109,7 +110,6 @@
       <config projectName="Mercury" targetName="LiquidMigrationTwoSpeciesSelfTest" />
       <config projectName="Mercury" targetName="ClosedCSCRun" />
       <config projectName="Mercury" targetName="ProtectiveWall" />
-      <config projectName="Mercury" targetName="Discharge_periodic" />
       <config projectName="Mercury" targetName="SiegenSlide" />
       <config projectName="Mercury" targetName="ParameterStudy3DDemo" />
       <config projectName="Mercury" targetName="TunuguntlaBokhoveThornton2014" />
@@ -138,7 +138,6 @@
       <config projectName="Mercury" targetName="SingleSphere" />
       <config projectName="Mercury" targetName="flowRuleDiego_HeightAngle" />
       <config projectName="Mercury" targetName="OSPenetration" />
-      <config projectName="Mercury" targetName="Discharge_fixedwalls" />
       <config projectName="Mercury" targetName="BouncingSuperQuadricSelfTest" />
       <config projectName="Mercury" targetName="restart2" />
       <config projectName="Mercury" targetName="GranularCollapseDemo" />
@@ -189,12 +188,12 @@
       <config projectName="Mercury" targetName="FreeCoolingDemo" />
       <config projectName="Mercury" targetName="LeesEdwardsSelfTest" />
       <config projectName="Mercury" targetName="ConstantMassFlowMaserBoundaryMixedSpeciesSelfTest" />
-      <config projectName="Mercury" targetName="Discharge_periodic_v2" />
       <config projectName="Mercury" targetName="ShapeGradientHessianUnitTest" />
       <config projectName="Mercury" targetName="ParallelUnitTestMPI" />
       <config projectName="Mercury" targetName="MarbleRunWithSeesaw" />
       <config projectName="Mercury" targetName="SinterPair" />
       <config projectName="Mercury" targetName="Vec3DUnitTest" />
+      <config projectName="Mercury" targetName="Socavon_fijo" />
       <config projectName="Mercury" targetName="Hopper3dDemo" />
       <config projectName="Mercury" targetName="PSDManualInsertionSelfTest" />
       <config projectName="Mercury" targetName="CGStandardDeviationUnitTest" />
@@ -236,7 +235,6 @@
       <config projectName="Mercury" targetName="CubeDeletionBoundarySelfTest" />
       <config projectName="Mercury" targetName="Analyse.sh" />
       <config projectName="Mercury" targetName="FreeFallRestart" />
-      <config projectName="Mercury" targetName="Discharge" />
       <config projectName="Mercury" targetName="FreeCooling2DinWallsDemo" />
       <config projectName="Mercury" targetName="no_seg" />
       <config projectName="Mercury" targetName="NautaMixer" />
@@ -300,19 +298,18 @@
       <config projectName="Mercury" targetName="SinterBed2SelfTest" />
       <config projectName="Mercury" targetName="Binary" />
       <config projectName="Mercury" targetName="HertzianSinterForceUnitTest" />
+      <config projectName="Mercury" targetName="Socavon_v3" />
+      <config projectName="Mercury" targetName="Socavon_v1" />
       <config projectName="Mercury" targetName="MarbleRun" />
+      <config projectName="Mercury" targetName="Socavon_v2" />
+      <config projectName="Mercury" targetName="1agujero_omp" />
       <config projectName="Mercury" targetName="TangentialSpringEnergyConservationUnitTest" />
       <config projectName="Mercury" targetName="ContactWithWallUnitTest" />
       <config projectName="Mercury" targetName="HGridUpdateUnitTest" />
       <config projectName="Mercury" targetName="TangentialSpringUnitTest" />
       <config projectName="Mercury" targetName="DensitySizeSeg_Belt_WarreJan_25_75" />
       <config projectName="Mercury" targetName="MovingIntersectionOfWallsUnitTest" />
-      <config projectName="Mercury" targetName="Discharge_v6" />
-      <config projectName="Mercury" targetName="Discharge_v4" />
       <config projectName="Mercury" targetName="SplitFiles" />
-      <config projectName="Mercury" targetName="Discharge_v5" />
-      <config projectName="Mercury" targetName="Discharge_v2" />
-      <config projectName="Mercury" targetName="Discharge_v3" />
       <config projectName="Mercury" targetName="CSCRun" />
       <config projectName="Mercury" targetName="TwoParticleElasticCollisionInteractionSelfTest" />
       <config projectName="Mercury" targetName="RestartToData" />
@@ -339,7 +336,44 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba4a7853-edbd-45a2-a7db-2ceea6e50bd5" name="Changes" comment="" />
+    <list default="true" id="ba4a7853-edbd-45a2-a7db-2ceea6e50bd5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Drivers/Silos/1agujero_omp.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/Silos/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Drivers/Silos/Discharge_omp.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Drivers/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CMakeFiles/DescargaGranularSTLv2.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CMakeFiles/DescargaGranularSTLv2.dir/DescargaGranularSTLv2.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CMakeFiles/DescargaGranularSTLv2.dir/DescargaGranularSTLv2.cpp.o.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CMakeFiles/DescargaGranularSTLv2.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CMakeFiles/DescargaGranularSTLv2.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CMakeFiles/DescargaGranularSTLv2.dir/compiler_depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CMakeFiles/DescargaGranularSTLv2.dir/compiler_depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CMakeFiles/DescargaGranularSTLv2.dir/compiler_depend.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CMakeFiles/DescargaGranularSTLv2.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CMakeFiles/DescargaGranularSTLv2.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CMakeFiles/DescargaGranularSTLv2.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CMakeFiles/DescargaGranularSTLv2.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CMakeFiles/progress.marks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CTestTestfile.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CilindroFino.stl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CilindroGrueso.stl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/CilindroMuyFino.stl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/Discharge.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/Discharge_fixedwalls.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/Discharge_omp.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/Discharge_periodic.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/Discharge_periodic_v2.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/Discharge_v2.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/Discharge_v3.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/Discharge_v4.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/Discharge_v6.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/discharge-silo/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drivers/silo-discharge" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -355,7 +389,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Drivers/silo-discharge" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -366,12 +400,15 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="1xrcDlkZ76r5RPDU7ITGPxjkTgP" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
@@ -387,15 +424,20 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
   </component>
-  <component name="RunManager" selected="CMake Application.Discharge_omp">
+  <component name="RunManager" selected="CMake Application.1agujero_omp">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
     <configuration name="1Particle4WallsRestartUnitTest" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="1Particle4WallsRestartUnitTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="1Particle4WallsRestartUnitTest">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="1agujero_omp" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="1agujero_omp" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="1agujero_omp">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -740,52 +782,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Discharge" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="Discharge" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="Discharge">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Discharge_fixedwalls" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="Discharge_fixedwalls" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="Discharge_fixedwalls">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Discharge_omp" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="Discharge_omp" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="Discharge_omp">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Discharge_periodic" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="Discharge_periodic" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="Discharge_periodic">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Discharge_periodic_v2" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="Discharge_periodic_v2" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="Discharge_periodic_v2">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Discharge_v2" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="Discharge_v2" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="Discharge_v2">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Discharge_v3" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="Discharge_v3" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="Discharge_v3">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Discharge_v4" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="Discharge_v4" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="Discharge_v4">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Discharge_v5" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="Discharge_v5" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="Discharge_v5">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Discharge_v6" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="Discharge_v6" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="Discharge_v6">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -1575,6 +1572,31 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Socavon_fijo" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="Socavon_fijo" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="Socavon_fijo">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Socavon_semiesfera_rfijo" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="Socavon_semiesfera_rfijo" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="Socavon_semiesfera_rfijo">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Socavon_v1" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="Socavon_v1" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="Socavon_v1">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Socavon_v2" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="Socavon_v2" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="Socavon_v2">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Socavon_v3" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="Socavon_v3" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="Socavon_v3">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="SpeciesUnitTest" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Mercury" TARGET_NAME="SpeciesUnitTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Mercury" RUN_TARGET_NAME="SpeciesUnitTest">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -2025,7 +2047,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All CTest" type="CTestRunConfiguration" factoryName="CTestRun" PROGRAM_PARAMS="--extra-verbose" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" WORKING_DIR="file://$CMakeCurrentLocalGenerationDir$" PASS_PARENT_ENVS_2="true" RUN_PATH="$CTestCurrentExecutableName$" EXPLICIT_BUILD_TARGET_NAME="all" TEST_MODE="SUITE_TEST">
+    <configuration name="All CTest" type="CTestRunConfiguration" factoryName="CTestRun" PROGRAM_PARAMS="--extra-verbose" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" WORKING_DIR="file://$CMakeCurrentLocalGenerationDir$" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_PATH="$CTestCurrentExecutableName$" EXPLICIT_BUILD_TARGET_NAME="all" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
@@ -2230,16 +2252,8 @@
       <item itemvalue="CMake Application.TriangulatedWallSelfTest" />
       <item itemvalue="CMake Application.UnionOfWallsSelfTest" />
       <item itemvalue="CMake Application.mercury" />
-      <item itemvalue="CMake Application.Discharge" />
-      <item itemvalue="CMake Application.Discharge_fixedwalls" />
+      <item itemvalue="CMake Application.1agujero_omp" />
       <item itemvalue="CMake Application.Discharge_omp" />
-      <item itemvalue="CMake Application.Discharge_periodic" />
-      <item itemvalue="CMake Application.Discharge_periodic_v2" />
-      <item itemvalue="CMake Application.Discharge_v2" />
-      <item itemvalue="CMake Application.Discharge_v3" />
-      <item itemvalue="CMake Application.Discharge_v4" />
-      <item itemvalue="CMake Application.Discharge_v5" />
-      <item itemvalue="CMake Application.Discharge_v6" />
       <item itemvalue="CMake Application.MonodispersedDrum" />
       <item itemvalue="CMake Application.SquareDrumTest" />
       <item itemvalue="CMake Application.SingleParticleConstantTemperatureSelfTest" />
@@ -2249,6 +2263,11 @@
       <item itemvalue="CMake Application.SinterBed2SelfTest" />
       <item itemvalue="CMake Application.SinterPair" />
       <item itemvalue="CMake Application.visualiseSinteringFromRestartFile" />
+      <item itemvalue="CMake Application.Socavon_fijo" />
+      <item itemvalue="CMake Application.Socavon_semiesfera_rfijo" />
+      <item itemvalue="CMake Application.Socavon_v1" />
+      <item itemvalue="CMake Application.Socavon_v2" />
+      <item itemvalue="CMake Application.Socavon_v3" />
       <item itemvalue="CMake Application.InteractionHandlerSpeedTest" />
       <item itemvalue="CMake Application.ParticleHandlerSpeedTest" />
       <item itemvalue="CMake Application.ScalingTest" />
@@ -2378,7 +2397,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1631116534748</updated>
-      <workItem from="1631116543235" duration="10823000" />
+      <workItem from="1631116543235" duration="12335000" />
+      <workItem from="1631208119254" duration="6135000" />
+      <workItem from="1631241879027" duration="3363000" />
     </task>
     <task id="LOCAL-00001" summary="desde Linux">
       <created>1631202658453</created>
@@ -2408,7 +2429,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631203710317</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="desde Linux">
+      <created>1631204099893</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1631204099893</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -2424,8 +2452,10 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="desde Linux2" />
     <MESSAGE value="desde Linux" />
     <option name="LAST_COMMIT_MESSAGE" value="desde Linux" />
